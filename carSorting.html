@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href='carSorting.css' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8">
+    <title> Compare Cars </title>
+    <script src='carSorting.js'></script>
+
+</head>
+<body>
+<div id="form1"></div>
+<form>
+    <p> on the value of
+        <select id='attOption'>
+            <option class="att" value="HP">Horse Power</option>
+            <option class="att" value="MPG">MPG</option>
+            <option class="att" value="Tank">Tank size</option>
+            <option class="att" value="Cargo">Cargo Space</option>
+            <option class="att" value="GC">Ground Clearance</option> 
+            <option class="att" value="Price">Price</option>
+
+        </select>
+    </p>    
+</form>
+<button id="compare" onclick='allCars()'>Compare the cars!</button>
+<button id="single" onclick='attFunc()'>Check out a single car</button>
+<button id="addCar" onclick='startFunc()'>Add a new car to the list</button>
+
+    
+<div id="results"></div>
+    
+<div id='test'></div>
+    
+    
+    
+    
+    
+    
+    
+</body>
+</html>
