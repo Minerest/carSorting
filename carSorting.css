@@ -22,3 +22,7 @@ tr {
 #submission {
     background-Color: #04d897
 }
+p {
+    font-style: italic;
+    color: #091a53;
+}

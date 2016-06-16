@@ -10,7 +10,7 @@
 <body>
 <div id="form1"></div>
 <form>
-    <p> on the value of
+    <p> Compare the value of:
         <select id='attOption'>
             <option class="att" value="HP">Horse Power</option>
             <option class="att" value="MPG">MPG</option>
@@ -22,10 +22,11 @@
         </select>
     </p>    
 </form>
+<p>* The toggle table button is a table for all cars you input yourself!</p>
 <button id="compare" onclick='allCars()'>Compare the cars!</button>
 <button id="single" onclick='attFunc()'>Check out a single car</button>
 <button id="addCar" onclick='startFunc()'>Add a new car to the list</button>
-
+<button id='custom' onclick='toggleCustom()'>Toggle the Table?</button>
     
 <div id="results"></div>
     

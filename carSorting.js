@@ -34,6 +34,15 @@ else{
     carsArray = JSON.parse(carsArray);
 }
 
+if (localStorage.getItem("custom") != null){
+    var customArr = localStorage.getItem("custom");
+    customArr = JSON.parse(customArr);
+    
+}
+else{
+    var customArr = [];
+}
+
 function attFunc(){
     count = 0;
     var carChoice;
@@ -69,7 +78,7 @@ function allCars (){
     var tStr;              
     newCarArr = sorting(carsArray, attribute);    
         
-    var tStr = '<table border="1">' // Start the table
+    tStr = '<table border="1">' // Start the table
     for (var x = 0; x < newCarArr.length; x++){
         tStr += allCarsTable(newCarArr[x]) // Make the table
     }
@@ -77,22 +86,32 @@ function allCars (){
     document.getElementById("results").innerHTML = tStr;
 
 }
-var countz= 0;
+
+function toggleCustom(){
+    count=0;
+    var cStr;
+    var newArr = [];
+    var atr = getAnswer("attOption", "att", "value");
+    newArr = sorting(customArr, atr);
+    cStr = '<table border="1">'
+    for (var d = 0; d < customArr.length; d++){
+        cStr += allCarsTable(customArr[d])
+    }
+    cStr += '</table>';
+    document.getElementById("results").innerHTML = cStr;
+}
 
 function sorting(array, atr){
     var placeHolder;
     for (var num = 0; num < array.length; num++){
         
         if (num+1 == array.length){
-            console.log(countz);
             return array;
         }
         else if (array[num][atr] < array[num+1][atr]){
-           countz++;
             placeHolder = array[num]; // set placeholder
             array[num] = array[num+1]; // Move object down a spot
             array[num+1] = placeHolder; // set original (arr[num] up a spot
-            console.log(array);
             return sorting(array, atr);
         }
         else if (array[num][atr] >= array[num+1][atr]){ 
@@ -109,9 +128,9 @@ function allCarsTable (thing){
     tableStr = "<tr class='css"+count%2+"'><th><h1>"+count+"</h1></th><th colspan='5'><h1>"+thing.name+"</h1></th></tr>"
     if (count % 3 == 0 || count == 1 ){                
     
-    tableStr += "<tr class='css"+count%2+"'><td class='lables'>Horse Power</td><td class='lables'>MPG</td><td class='lables'>Tank Size in gallons</td><td class='lables'>Cargo Space in cubic ft</td><td class='lables'>Ground Clearance in inches</td><td>Price (MSRP)</td></tr>";
-        
-    tableStr += "<tr class='css"+count%2+"'><td>"+thing.HP+"</td><td>"+thing.MPG+"</td><td>"+thing.Tank+" gallons</td><td>"+thing.Cargo+" Cu. Ft</td><td>"+thing.GC+" inches</td><td>$"+thing.Price+"</td></tr>"
+        tableStr += "<tr class='css"+count%2+"'><td class='lables'>Horse Power</td><td class='lables'>MPG</td><td class='lables'>Tank Size in gallons</td><td class='lables'>Cargo Space in cubic ft</td><td class='lables'>Ground Clearance in inches</td><td>Price (MSRP)</td></tr>";
+
+        tableStr += "<tr class='css"+count%2+"'><td>"+thing.HP+"</td><td>"+thing.MPG+"</td><td>"+thing.Tank+" gallons</td><td>"+thing.Cargo+" Cu. Ft</td><td>"+thing.GC+" inches</td><td>$"+thing.Price+"</td></tr>"
     
 
     }
@@ -119,7 +138,7 @@ function allCarsTable (thing){
         tableStr += "<tr class='css"+count%2+"'><td>"+thing.HP+"</td><td>"+thing.MPG+"</td><td>"+thing.Tank+" gallons</td><td>"+thing.Cargo+" Cu. Ft</td><td>"+thing.GC+" inches</td><td>$"+thing.Price+"</td></tr>"
     }
     return tableStr;
-    }
+}
 
 
 
@@ -163,7 +182,11 @@ function submitFunc(){
         localStorage.setItem("allCars", carsArray);
         carsArray = JSON.parse(carsArray);
     }
-     setTimeout( function(){
+    customArr.push(obj);
+    customArr = JSON.stringify(customArr);
+    localStorage.setItem("custom", customArr);
+    customArr = JSON.parse(customArr);
+    setTimeout( function(){
         document.getElementById("results").innerHTML = "Sending Results...";
             setTimeout( function(){
             document.getElementById("results").innerHTML = "Got'em!";
@@ -180,7 +203,7 @@ function makeForm1(){
     var str = "";
     document.getElementById("form1").innerHTML = str;
 
-    str = "<form><p>Compare the car<select id='cars'>";
+    str = "<form><p>Compare the car: <select id='cars'>";
     for (var counter = 0; counter < carsArray.length; counter++){
         str += "<option class='carOption'>"+carsArray[counter].name+"</option>"; 
     }
